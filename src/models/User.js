@@ -7,6 +7,5 @@ const userSchema = new Schema({
   password: { type: String, required: true },
 });
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+// check if model exists if so use existing model otherwise create new model
+export default mongoose.models.User || mongoose.model("User", userSchema);
