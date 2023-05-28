@@ -1,33 +1,36 @@
 import dbConnect from "@/lib/dbConnect";
 import Like from "@/models/Like";
-import User from "@/models/User";
-import Post from "@/models/Post";
 import { NextResponse } from "next/server";
 
 // POST: create a like
 export async function POST(request) {
   await dbConnect();
-  const data = await request.json();
-
-  const { user, content } = data;
+  const { userId, postId } = await request.json();
 
   try {
-    const username = await User.findOne({ user });
-    const postLiked = await Post.findOne({ content });
+    // check authorization and authentication
 
+    // find existing like for user and post combination
+    const existingLike = await Like.findOne({ user: userId, post: postId });
+
+    // if the like already exists, remove it (dislike)
+    if (existingLike) {
+      await existingLike.remove();
+      return NextResponse.json({ message: "Post disliked successfully" });
+    }
+
+    // create like
     const like = new Like({
-      user: username._id,
-      post: postLiked._id,
+      user: userId,
+      post: postId,
     });
 
     await like.save();
 
-    return NextResponse.json(
-      { message: "Like created successfully" },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: "Post liked successfully" }, like);
   } catch (error) {
-    return NextResponse.json({ error: "Error creating post" }, { status: 500 });
+    console.error("Error handling like: ", error);
+    return NextResponse.json({ error: "Error handling like" }, { status: 500 });
   }
 }
 
