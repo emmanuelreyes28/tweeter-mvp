@@ -34,7 +34,3 @@ export async function POST(request) {
     return NextResponse.json({ error: "Error handling like" }, { status: 500 });
   }
 }
-
-// GET: get likes for a given post
-
-// GET: get likes by a user

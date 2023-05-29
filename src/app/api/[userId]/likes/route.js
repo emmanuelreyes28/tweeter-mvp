@@ -2,21 +2,22 @@ import dbConnect from "@/lib/dbConnect";
 import Like from "@/models/Like";
 import { NextResponse } from "next/server";
 
-// GET: get the number of likes for a given post using its id
+// GET: find all liked posts for a given userId
 export async function GET(request, { params }) {
   await dbConnect();
 
-  // retrieve all likes from Like model that have the given postId
   try {
-    const numberOfLikes = await Like.countDocuments({ post: params.postId });
-
+    const likedPosts = await Like.find({ user: params.userId });
     return NextResponse.json(
-      { message: "Successfully counted likes for post", numberOfLikes },
+      {
+        message: "Successfully retrieved all liked posts for given userId",
+        likedPosts,
+      },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Error counting likes for given postId" },
+      { error: "Error finding all likes for given userId" },
       { status: 500 }
     );
   }
