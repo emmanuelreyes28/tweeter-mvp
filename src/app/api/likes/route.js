@@ -15,7 +15,8 @@ export async function POST(request) {
 
     // if the like already exists, remove it (dislike)
     if (existingLike) {
-      await existingLike.remove();
+      // remove liked post from Like model
+      await Like.findByIdAndRemove(existingLike._id);
       return NextResponse.json({ message: "Post disliked successfully" });
     }
 
@@ -33,8 +34,6 @@ export async function POST(request) {
     return NextResponse.json({ error: "Error handling like" }, { status: 500 });
   }
 }
-
-// DELETE: delete a like
 
 // GET: get likes for a given post
 
