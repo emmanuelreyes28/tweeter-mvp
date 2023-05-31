@@ -19,7 +19,7 @@ export async function GET(request, { params }) {
     const allCommentsByUser = await Comment.find({ user: params.userId });
 
     // check if any comments have been made by the user
-    if (allCommentsByUser.lenght === 0) {
+    if (allCommentsByUser.length === 0) {
       return NextResponse.json(
         { message: "There are 0 comments made by this user" },
         { status: 200 }
