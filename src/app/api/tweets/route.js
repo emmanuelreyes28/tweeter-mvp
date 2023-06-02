@@ -14,7 +14,6 @@ export async function GET(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: "Error retrieving tweets for timeline" },
       { stauts: 500 }
