@@ -9,6 +9,7 @@ export default function Register() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -21,9 +22,28 @@ export default function Register() {
     });
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
+
+    try {
+      const response = await fetch("api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const { message } = await response.json();
+        setError(message);
+        console.log(error);
+      }
+
+      // TO-DO: route/link to timeline if registration successful here
+    } catch (error) {
+      console.error("An error occurred: ", error);
+    }
   };
 
   return (
