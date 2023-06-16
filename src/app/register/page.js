@@ -21,6 +21,11 @@ export default function Register() {
     });
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+  };
+
   return (
     <div>
       <div className="container mx-auto p-4">
@@ -29,7 +34,7 @@ export default function Register() {
           className="max-w-md mx-auto bg-white rounded p-8 shadow"
         >
           <h1 className="text-3xl font-bold mb-4">Register</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="username" className="block font-bold mb-2">
                 Username:
