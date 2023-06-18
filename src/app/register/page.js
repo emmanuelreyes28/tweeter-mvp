@@ -103,7 +103,7 @@ export default function Register() {
             </div>
             <div className="text-center">
               <p>
-                Already have an account?{" "}
+                Already have an account? {/* TO-DO: link to sign in page */}
                 <Link href="#" className="text-blue-500">
                   Sign-in here.
                 </Link>
