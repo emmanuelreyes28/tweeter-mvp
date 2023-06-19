@@ -49,7 +49,7 @@ export default function SingIn() {
             <div className="text-center">
               <p>
                 Don&apos;t have an account?{" "}
-                <Link href="#" className="text-blue-500">
+                <Link href="/register" className="text-blue-500">
                   Register here.
                 </Link>
               </p>
