@@ -26,13 +26,16 @@ export async function POST(request) {
         );
       } else {
         return NextResponse.json(
-          { message: "Password is incorrect" },
-          { status: 403 }
+          { message: "Incorrect password" },
+          { status: 401 }
         );
       }
     }
     // user is not found
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
+    return NextResponse.json(
+      { message: "Username not found" },
+      { status: 401 }
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },

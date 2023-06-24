@@ -12,11 +12,19 @@ export async function POST(request) {
 
   try {
     // check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingEmail = await User.findOne({ email });
+    const existingUsername = await User.findOne({ username });
 
-    if (existingUser) {
+    if (existingEmail) {
       return NextResponse.json(
-        { message: "User already exists" },
+        { message: "This email has an existing account" },
+        { status: 400 }
+      );
+    }
+
+    if (existingUsername) {
+      return NextResponse.json(
+        { message: "Username is already taken" },
         { status: 400 }
       );
     }

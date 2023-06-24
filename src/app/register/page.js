@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Register() {
+  const router = useRouter();
   const [data, setData] = useState({
     username: "",
     email: "",
@@ -41,6 +43,7 @@ export default function Register() {
       }
 
       // TO-DO: route/link to timeline if registration successful here
+      router.push("/timeline");
     } catch (error) {
       console.error("An error occurred: ", error);
     }
@@ -110,6 +113,7 @@ export default function Register() {
               </p>
             </div>
           </form>
+          <p className="text-red-500 text-center">{error}</p>
         </div>
       </div>
     </div>
